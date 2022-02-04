@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<insert id="join" parameterType="uservo">
+		<![CDATA[ insert into user values(#{id}, #{name}, #{password})]]>	
+	</insert>
+	
+	<select id="login" parameterType="map" resultType="uservo">
+		<![CDATA[ select id, name, password from user where id = #{id} and password = #{p}]]>	
+	</select>
+	
+	<insert id="insertblog" parameterType="map">
+		<![CDATA[ insert into blog values(#{id}, #{t}, #{l}) ]]>
+	</insert>
+	
+	<insert id="insertcategory">
+		<![CDATA[ insert into category values 
+		(null, #{name}, #{description}, #{blogId})]]>
+	</insert>
+	
+</mapper>
