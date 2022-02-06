@@ -22,8 +22,8 @@ public class UserService {
 		userRepository.insertBlog(userVo, logo, title);
 	}
 	
-	public void insertCategory(UserVo userVo, String description) {
-		userRepository.insertCategory(userVo, description);
+	public void insertCategory(UserVo userVo, String name, String description) {
+		userRepository.insertCategory(userVo, name, description);
 	}
 
 }

@@ -33,9 +33,9 @@ public class UserRepository {
 		return 1==sqlSession.insert("user.insertblog", map);
 	}
 
-	public boolean insertCategory(UserVo userVo, String description) {
+	public boolean insertCategory(UserVo userVo, String name, String description) {
 		Map<String, String> map = new HashMap<>();
-		map.put("name", userVo.getName());
+		map.put("name", name);
 		map.put("d", description);
 		map.put("id", userVo.getId());
 		return 1== sqlSession.insert("user.insertcategory", map);

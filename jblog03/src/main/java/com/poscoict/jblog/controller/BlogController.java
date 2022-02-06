@@ -1,5 +1,7 @@
 package com.poscoict.jblog.controller;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,30 +15,36 @@ import com.poscoict.jblog.security.AuthUser;
 import com.poscoict.jblog.service.BlogService;
 import com.poscoict.jblog.service.FileUploadService;
 import com.poscoict.jblog.vo.BlogVo;
+import com.poscoict.jblog.vo.CategoryVo;
 import com.poscoict.jblog.vo.PostVo;
 import com.poscoict.jblog.vo.UserVo;
 
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/blog/{id}")
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	@Autowired
 	private FileUploadService fileUploadService;
+	@Autowired
+	private ServletContext servletContext;
 	
-	@RequestMapping("/{id}")
+	
+	@RequestMapping("")
 	public String main(Model model, 
 			@AuthUser UserVo authUser,
 			@PathVariable("id") String id ) {
 		
 		model.addAttribute("blogVo", blogService.findOne(id));
-		return "blog/blog-main";
+		return "blog/main";
 	}
 	
 	@RequestMapping(value="/basic", method=RequestMethod.GET)
-	public String basic() {
-		return "blog/blog-admin-basic";
+	public String basic(Model model,
+			@PathVariable("id") String id) {
+		model.addAttribute("blogVo", blogService.findOne(id));
+		return "blog/basic";
 	}
 	
 	@RequestMapping(value="/basic", method=RequestMethod.POST)
@@ -47,22 +55,33 @@ public class BlogController {
 			blogVo.setLogo(logo);
 		}
 		blogService.basicUpdate(blogVo);
-		return "redirect:blog/blog-admin-basic";
+		servletContext.setAttribute("blogVo", blogVo);
+		System.out.println(blogVo);
+		return "redirect:basic";
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String write() {
-		return "blog/blog-admin-write";
+		return "blog/write";
 	}
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String write(PostVo postVo) {
 		blogService.write(postVo);
-		return "redirect:blog/blog-admin-write";
+		return "redirect:write";
 	}
 
-	
-	@RequestMapping("/category")
-	public String category() {
-		return "blog/blog-admin-category";
+
+	@RequestMapping(value="/category", method=RequestMethod.GET)
+	public String category(Model model,
+			@PathVariable("id") String id) {
+		model.addAttribute("list", blogService.category(id));
+		return "blog/category";
+	}
+	@RequestMapping(value="/category", method=RequestMethod.POST)
+	public String category(Model model, CategoryVo categoryVo) {
+		System.out.println("##########"+categoryVo);
+		blogService.categoryInsert(categoryVo);
+		String id = categoryVo.getBlogId();
+		return "redirect:category";
 	}
 }
