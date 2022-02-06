@@ -25,7 +25,10 @@ public class UserController {
 		
 		String logo =  "/images/202202754424605.png";
 		String title = userVo.getName()+"님의 블로그입니다.";
+		String description = "기본 카테고리입니다.";
+		
 		userService.insertBlog(userVo, logo, title);
+		userService.insertCategory(userVo, description);
 		return "redirect:/user/joinsuccess";
 	}
 	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)

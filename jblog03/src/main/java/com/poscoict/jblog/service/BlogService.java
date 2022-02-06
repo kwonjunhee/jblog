@@ -21,4 +21,9 @@ public class BlogService {
 		
 	}
 
+	public boolean basicUpdate(BlogVo blogVo) {
+		return 1== blog
+		
+	}
+
 }

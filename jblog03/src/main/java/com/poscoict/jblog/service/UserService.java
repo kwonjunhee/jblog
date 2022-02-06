@@ -20,7 +20,10 @@ public class UserService {
 
 	public void insertBlog(UserVo userVo, String logo, String title) {
 		userRepository.insertBlog(userVo, logo, title);
-		
+	}
+	
+	public void insertCategory(UserVo userVo, String description) {
+		userRepository.insertCategory(userVo, description);
 	}
 
 }

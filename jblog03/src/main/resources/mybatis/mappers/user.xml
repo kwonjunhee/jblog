@@ -14,9 +14,8 @@
 		<![CDATA[ insert into blog values(#{id}, #{t}, #{l}) ]]>
 	</insert>
 	
-	<insert id="insertcategory">
-		<![CDATA[ insert into category values 
-		(null, #{name}, #{description}, #{blogId})]]>
+	<insert id="insertcategory" parameterType="map">
+		<![CDATA[ insert into category values (null, #{name}, #{d}, #{id})]]>
 	</insert>
 	
 </mapper>

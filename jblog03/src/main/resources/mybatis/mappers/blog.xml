@@ -8,8 +8,7 @@
 	</select>
 	
 	<insert id="write" parameterType="postvo">
-		<![CDATA[ insert into post values 
-		(null, #{title}, #{content}, #{regDate}, #{categoryNo}) ]]>
+		<![CDATA[ insert into post values (null, #{title}, #{content}, #{regDate}, #{categoryNo}) ]]>
 	</insert>
 	
 </mapper>
