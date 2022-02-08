@@ -15,9 +15,9 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}/basic">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/${blogVo.userId}/basic">기본설정</a></li>
 					<li class="selected">카테고리</li>
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/${blogVo.userId}/write">글작성</a></li>
 				</ul>
 		      	<table class="admin-cat">
 		      		<tr>
@@ -30,17 +30,23 @@
 		      		<c:set var="count" value="${fn:length(list)}" />
 						<c:forEach items="${list}" var="categoryVo" varStatus="status">
 							<tr>
-								<td>${categoryVo.no}</td>
+								<td>${status.index + 1}</td>
 								<td>${categoryVo.name }</td>
-								<td>${categoryVo.count }</td>
+								<td>${categoryVo.count}</td>
 								<td>${categoryVo.description}</td>
-								<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+								<td>
+								<c:if test="${categoryVo.count eq 0 }">
+									<a href="${pageContext.servletContext.contextPath}/admin/${blogVo.userId}/category/delete/${categoryVo.no}">
+									<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+								</c:if>
+								</td>
 							</tr>  
 					</c:forEach>
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath }/blog/${categoryVo.blogId}/category" method="post">
+      			<form action="${pageContext.request.contextPath }/admin/${blogVo.userId}/category" method="post">
+      				<input type="hidden" name="blogId" value="${blogVo.userId}">
 			      	<table id="admin-cat-add">
 			      		<tr>
 			      			<td class="t">카테고리명</td>

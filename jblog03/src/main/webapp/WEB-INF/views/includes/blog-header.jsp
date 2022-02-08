@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div id="header">
-	<h1>${blogVo.title}</h1>
+	<h1><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}">${blogVo.title}</a></h1>
 	<ul>
 		<c:choose>
 			<c:when test="${empty authUser}">
@@ -14,7 +14,7 @@
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				<c:choose>
 					<c:when test="${authUser.id eq blogVo.userId}">
-						<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/basic">블로그 관리</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/${authUser.id}/basic">블로그 관리</a></li>
 					</c:when>
 				</c:choose>				
 			</c:otherwise>

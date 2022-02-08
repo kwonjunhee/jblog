@@ -8,7 +8,7 @@
 	</select>
 	
 	<insert id="write" parameterType="postvo">
-		<![CDATA[ insert into post values (null, #{title}, #{content}, #{regDate}, #{categoryNo}) ]]>
+		<![CDATA[ insert into post values (null, #{title}, #{content}, now(), #{categoryNo}) ]]>
 	</insert>
 	
 	<update id="basicUpdate" parameterType="blogvo" >

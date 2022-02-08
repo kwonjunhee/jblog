@@ -1,87 +1,58 @@
 package com.poscoict.jblog.controller;
 
-import javax.servlet.ServletContext;
+import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.poscoict.jblog.security.AuthUser;
 import com.poscoict.jblog.service.BlogService;
-import com.poscoict.jblog.service.FileUploadService;
-import com.poscoict.jblog.vo.BlogVo;
-import com.poscoict.jblog.vo.CategoryVo;
-import com.poscoict.jblog.vo.PostVo;
+import com.poscoict.jblog.service.CategoryService;
+import com.poscoict.jblog.service.PostService;
 import com.poscoict.jblog.vo.UserVo;
 
 
 @Controller
-@RequestMapping("/blog/{id}")
+@RequestMapping("/blog/{id:(?!assets).*}")
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	@Autowired
-	private FileUploadService fileUploadService;
+	private CategoryService categoryService;
 	@Autowired
-	private ServletContext servletContext;
+	private PostService postService;
+
 	
-	
-	@RequestMapping("")
+	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
 	public String main(Model model, 
 			@AuthUser UserVo authUser,
-			@PathVariable("id") String id ) {
+			@PathVariable("id") String id,
+			@PathVariable("pathNo1") Optional<Long> pathNo1,
+		    @PathVariable("pathNo2") Optional<Long>  pathNo2) {
+		
+		Long categoryNo = categoryService.getCategoryNobyid(id);
+		Long postNo = postService.getPostNo(categoryNo);
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$"+categoryNo+postNo);
+
+		if(pathNo2.isPresent()) {
+			categoryNo = pathNo1.get();
+			postNo = pathNo2.get();
+		} else if(pathNo1.isPresent()) {
+			categoryNo = pathNo1.get();
+			postNo = postService.getPostNo(categoryNo);
+
+		}
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$"+categoryNo+postNo);
 		
 		model.addAttribute("blogVo", blogService.findOne(id));
+		model.addAttribute("categoryList", categoryService.category(id));
+		model.addAttribute("postVo", postService.findOne(categoryNo, postNo));
+		model.addAttribute("postList", postService.findAll(categoryNo));
+		
 		return "blog/main";
-	}
-	
-	@RequestMapping(value="/basic", method=RequestMethod.GET)
-	public String basic(Model model,
-			@PathVariable("id") String id) {
-		model.addAttribute("blogVo", blogService.findOne(id));
-		return "blog/basic";
-	}
-	
-	@RequestMapping(value="/basic", method=RequestMethod.POST)
-	public String basic(BlogVo blogVo,
-			@RequestParam(value="logo-file") MultipartFile multipartFile) {
-		String logo = fileUploadService.restore(multipartFile);
-		if(logo!=null) {
-			blogVo.setLogo(logo);
-		}
-		blogService.basicUpdate(blogVo);
-		servletContext.setAttribute("blogVo", blogVo);
-		System.out.println(blogVo);
-		return "redirect:basic";
-	}
-	
-	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String write() {
-		return "blog/write";
-	}
-	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String write(PostVo postVo) {
-		blogService.write(postVo);
-		return "redirect:write";
-	}
-
-
-	@RequestMapping(value="/category", method=RequestMethod.GET)
-	public String category(Model model,
-			@PathVariable("id") String id) {
-		model.addAttribute("list", blogService.category(id));
-		return "blog/category";
-	}
-	@RequestMapping(value="/category", method=RequestMethod.POST)
-	public String category(Model model, CategoryVo categoryVo) {
-		System.out.println("##########"+categoryVo);
-		blogService.categoryInsert(categoryVo);
-		String id = categoryVo.getBlogId();
-		return "redirect:category";
 	}
 }

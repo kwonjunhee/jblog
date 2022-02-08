@@ -4,12 +4,29 @@
 <mapper namespace="category">
 		
 	<select id="select" parameterType="string" resultType="categoryvo" >
-		<![CDATA[ select no, name, count(*) as count, description, blog_id as blogId from category where blog_id = #{id} ]]>
+		<![CDATA[ select c.no, c.name, c.description, c.blog_id as blogId, count(p.no) as count from category c 
+					left join post p on p.category_no = c.no 
+					where c.blog_id= #{id} group by c.no order by c.no asc ]]>
+	</select>
+
+	<select id="getCategoryNo" parameterType="string" resultType="Long" >
+		<![CDATA[ select no from category where name = #{category} ]]>
 	</select>
 	
-		
+	<select id="getCategoryNobyid" parameterType="string" resultType="Long" >
+		<![CDATA[ select no from category where blog_id = #{id} order by no limit 1 ]]>
+	</select>
+	
+	<select id="count" parameterType="Long" resultType="integer" >
+		<![CDATA[ select count(no) as count from category where no = #{categoryNo} ]]>
+	</select>
+	
 	<insert id="insert" parameterType="categoryvo">
 		<![CDATA[ insert into category values (null, #{name}, #{description}, #{blogId}) ]]>
 	</insert>
+	
+	<delete id = "categoryDelete" parameterType="categoryvo" >
+		<![CDATA[ delete from category where no = #{no} and blog_id = #{blogId} ]]>
+	</delete>
 	
 </mapper>

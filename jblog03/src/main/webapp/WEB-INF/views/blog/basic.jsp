@@ -16,10 +16,10 @@
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
 					<li class="selected">기본설정</li>
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}/category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/${blogVo.userId}/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/${blogVo.userId}/write">글작성</a></li>
 				</ul>
-				<form action="${pageContext.request.contextPath }/blog/${blogVo.userId}/basic" enctype="multipart/form-data" method="post">
+				<form action="${pageContext.request.contextPath }/admin/${blogVo.userId}/basic" enctype="multipart/form-data" method="post">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
