@@ -88,9 +88,13 @@ public class AdminController {
 			@PathVariable("categoryNo") Long categoryNo) {
 		categoryVo.setNo(categoryNo);
 		categoryVo.setBlogId(id);
+		System.out.println(categoryNo);
+		System.out.println(categoryService.categoryCount(categoryNo));
+		System.out.println("~~~~~~!!!!!!!!!!"+categoryService.category(id).size());
+
 		if(categoryService.categoryCount(categoryNo) == 0) {
 			categoryService.categoryDelete(categoryVo);
-		}		
+		}
 		
 		model.addAttribute("list", categoryService.category(id));
 		model.addAttribute("blogVo", blogService.findOne(id));

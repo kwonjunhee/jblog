@@ -30,14 +30,16 @@
 		      		<c:set var="count" value="${fn:length(list)}" />
 						<c:forEach items="${list}" var="categoryVo" varStatus="status">
 							<tr>
-								<td>${status.index + 1}</td>
+								<td>[ ${status.index + 1} ]</td>
 								<td>${categoryVo.name }</td>
 								<td>${categoryVo.count}</td>
 								<td>${categoryVo.description}</td>
 								<td>
-								<c:if test="${categoryVo.count eq 0 }">
-									<a href="${pageContext.servletContext.contextPath}/admin/${blogVo.userId}/category/delete/${categoryVo.no}">
-									<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+								<c:if test="${categoryVo.count eq 0}">
+									<c:if test="${fn:length(list) ne 1 }">
+										<a href="${pageContext.servletContext.contextPath}/admin/${blogVo.userId}/category/delete/${categoryVo.no}">
+										<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+									</c:if>
 								</c:if>
 								</td>
 							</tr>  

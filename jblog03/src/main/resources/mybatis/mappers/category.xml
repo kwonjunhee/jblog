@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="count" parameterType="Long" resultType="integer" >
-		<![CDATA[ select count(no) as count from category where no = #{categoryNo} ]]>
+		<![CDATA[ select count(no) as count from post where category_no = #{categoryNo} ]]>
 	</select>
 	
 	<insert id="insert" parameterType="categoryvo">
