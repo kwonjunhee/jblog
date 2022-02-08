@@ -31,6 +31,12 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		
 		BlogVo blogVo = blogService.findOne(id);
 		
+		if(authUser == null) {
+			response.sendRedirect(request.getContextPath()+"/blog/"+blogVo.getUserId());
+			return false;
+			
+		}
+		
 		if (!authUser.getId().equals(blogVo.getUserId())) {
 			response.sendRedirect(request.getContextPath()+"/blog/"+blogVo.getUserId());
 			return false;
