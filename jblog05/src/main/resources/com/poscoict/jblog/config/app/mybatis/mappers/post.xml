@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+
+	<select id="findOne" parameterType="map" resultType="postvo" >
+		<![CDATA[ 
+		select no, title, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, 
+		content, category_no as categoryNo from post
+		where category_no = #{categoryNo} and no=#{postNo} ]]>
+	</select>
+	
+	<select id="findAll" parameterType="Long" resultType="postvo" >
+		<![CDATA[ 
+		select no, title, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, 
+		content, category_no as categoryNo from post
+		where category_no = #{categoryNo} ]]>
+	</select>
+		
+	<select id="getPostNo" parameterType="Long" resultType="Long" >
+		<![CDATA[ select no from post where category_no = #{categoryNo}  order by no limit 1 ]]>
+	</select>
+	
+	
+	<insert id="write" parameterType="postvo">
+		<![CDATA[ insert into post values (null, #{title}, #{content}, now(), #{categoryNo}) ]]>
+	</insert>
+	
+
+
+</mapper>
