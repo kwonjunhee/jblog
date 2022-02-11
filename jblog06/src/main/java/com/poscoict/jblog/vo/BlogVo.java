@@ -4,6 +4,7 @@ public class BlogVo {
 	private String userId;
 	private String title;
 	private String logo;
+	
 	public String getUserId() {
 		return userId;
 	}

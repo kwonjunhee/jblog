@@ -41,11 +41,13 @@ public class AdminController {
 	
 	@RequestMapping(value="/basic", method=RequestMethod.POST)
 	public String basic(BlogVo blogVo,
-			@RequestParam(value="logo-file") MultipartFile multipartFile) {
+			@RequestParam(value="logo-file") MultipartFile multipartFile,
+			@PathVariable("id") String id) {
 		String logo = fileUploadService.restore(multipartFile);
 		if(logo!=null) {
 			blogVo.setLogo(logo);
 		}
+		blogVo.setUserId(id);
 		blogService.basicUpdate(blogVo);
 		servletContext.setAttribute("blogVo", blogVo);
 		System.out.println(blogVo);
