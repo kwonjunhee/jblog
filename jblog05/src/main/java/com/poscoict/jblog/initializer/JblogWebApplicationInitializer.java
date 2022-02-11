@@ -38,8 +38,8 @@ public class JblogWebApplicationInitializer extends AbstractAnnotationConfigDisp
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
 		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+
 	}
-	
 	
 
 }
