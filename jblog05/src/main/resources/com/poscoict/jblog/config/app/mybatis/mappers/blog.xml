@@ -14,10 +14,10 @@
 	<update id="basicUpdate" parameterType="blogvo" >
 		<choose>
 			<when test="logo == null || '' == logo" >
-				<![CDATA[update blog set title = #{title} ]]>
+				<![CDATA[update blog set title = #{title} where user_id=#{userId}]]>
 			</when>
 			<otherwise>
-				<![CDATA[update blog set title = #{title}, logo = #{logo} ]]>
+				<![CDATA[update blog set title = #{title}, logo = #{logo} where user_id=#{userId}]]>
 			</otherwise>
 		</choose>
 	</update>

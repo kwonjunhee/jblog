@@ -60,7 +60,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 		if (!authUser.getId().equals(pathVariables.get("id"))) {
-			response.sendRedirect(request.getContextPath() + "/jblog/" + pathVariables.get("id"));
+			response.sendRedirect(request.getContextPath() + "/blog/" + pathVariables.get("id"));
 			return false;
 		}
 

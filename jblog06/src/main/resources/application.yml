@@ -53,7 +53,7 @@ spring:
 # production profile: spring boot configuration
 server:
    port: 8080
-   servlet: 
+   servlet:
       context-path: /jblog06
       encoding:
          charset: utf-8
