@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.poscoict.jblog.security.Auth;
 import com.poscoict.jblog.service.BlogService;
 import com.poscoict.jblog.service.CategoryService;
 import com.poscoict.jblog.service.FileUploadService;
 import com.poscoict.jblog.vo.BlogVo;
 import com.poscoict.jblog.vo.CategoryVo;
 import com.poscoict.jblog.vo.PostVo;
-
+@Auth
 @Controller
 @RequestMapping("/admin/{id:(?!assets).*}")
 public class AdminController {
