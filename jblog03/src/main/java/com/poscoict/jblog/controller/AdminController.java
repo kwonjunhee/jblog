@@ -62,9 +62,13 @@ public class AdminController {
 		return "blog/write";
 	}
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String write(PostVo postVo,
-			@RequestParam("category") String category) {
-		Long categoryNo = categoryService.getCategoryNo(category);
+	public String write(PostVo postVo, CategoryVo categoryVo,
+			@RequestParam("categoryName") String categoryName,
+			@PathVariable("id") String id) {
+		categoryVo.setBlogId(id);
+		categoryVo.setName(categoryName);
+		System.out.println("@@@@@@"+categoryVo);
+		Long categoryNo = categoryService.getCategoryNo(categoryVo);
 		postVo.setCategoryNo(categoryNo);
 		blogService.write(postVo);
 		return "redirect:write";

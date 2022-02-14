@@ -20,8 +20,8 @@ public class CategoryService {
 		return 1== categoryRepository.categoryInsert(categoryVo);
 	}
 
-	public Long getCategoryNo(String category) {
-		return categoryRepository.getCategoryNo(category);
+	public Long getCategoryNo(CategoryVo categoryVo) {
+		return categoryRepository.getCategoryNo(categoryVo);
 	}
 
 	public boolean categoryDelete(CategoryVo categoryVo) {

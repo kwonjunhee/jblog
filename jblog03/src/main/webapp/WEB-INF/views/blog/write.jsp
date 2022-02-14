@@ -25,7 +25,7 @@
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
+				      			<select name="categoryName">
 						      		<c:set var="count" value="${fn:length(list)}" />
 										<c:forEach items="${list}" var="categoryVo" varStatus="status">
 											<option>${categoryVo.name}</option>

@@ -22,8 +22,8 @@ public class CategoryRepository {
 		int count =sqlSession.delete("category.categoryDelete", categoryVo);
 		return count;
 	}
-	public Long getCategoryNo(String category) {
-		Long categoryNo = sqlSession.selectOne("category.getCategoryNo", category);
+	public Long getCategoryNo(CategoryVo categoryVo) {
+		Long categoryNo = sqlSession.selectOne("category.getCategoryNo", categoryVo);
 		return categoryNo;
 	}
 

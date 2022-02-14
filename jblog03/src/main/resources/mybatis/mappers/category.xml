@@ -9,8 +9,8 @@
 					where c.blog_id= #{id} group by c.no order by c.no asc ]]>
 	</select>
 
-	<select id="getCategoryNo" parameterType="string" resultType="Long" >
-		<![CDATA[ select no from category where name = #{category} ]]>
+	<select id="getCategoryNo" parameterType="categoryVo" resultType="Long" >
+		<![CDATA[ select no from category where name = #{name} and blog_id=#{blogId} ]]>
 	</select>
 	
 	<select id="getCategoryNobyid" parameterType="string" resultType="Long" >
